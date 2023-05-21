@@ -1,6 +1,8 @@
 package com.example.restapihw;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 @Component
@@ -25,7 +27,15 @@ public class MovieDao {
         return null;
     }
 
-
+    public Movie updateMovie(long id, @RequestBody Movie updatedMovie) {
+        for (MoviePersisted moviePersisted : this.movies) {
+            if (moviePersisted.getId() == id) {
+                moviePersisted.setName(updatedMovie.getName());
+                return moviePersisted.toMovie();
+            }
+        }
+        return null;
+    }
 
 
     public boolean deleteMovie (long id){
